@@ -1,0 +1,1 @@
+INSERT INTO todo (task, priorirty) VALUES ('Create your first task!', 1);
