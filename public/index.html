@@ -5,9 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script async src="app.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script defer src="app.js"></script>
 </head>
 <body>
-    <h1>TODO</h1>
+    <h1>TO-DO</h1>
+    <div class="create-container">
+        <button id="openModalBtn">Create Task</button>
+    </div>
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Track your next task</h2>
+    <form>
+      <label for="task">task</label>
+      <input type="text" id="task" name="task" required>
+      <label for="priority">priority:</label>
+      <input type="priority" id="priority" name="priority" required>
+      <button class="submit" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+    <div class="tasks-container">
+    </div>
 </body>
 </html>
