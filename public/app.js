@@ -1,19 +1,62 @@
 const createButton = document.querySelector(".create-button");
-const taskContainer = document.querySelector(".tasks-container")
+const taskContainer = document.querySelector(".tasks-container");
+const deleteButton = document.createElement("BUTTON");
+
+// $.get('/api/todo', data => {
+// //*** Loop through data object provided by database and append to doc.body ***
+// for (let taskObj of data) {
+//   let task = taskObj.task;
+//   let priorirty = taskObj.priorirty;
+//   const newTaskEl = document.createElement('div');
+//   newTaskEl.textContent = task + ' - ' + "Priority: " + priorirty;
+//   taskContainer.append(newTaskEl);
+// //*** Create and append Delete button to each element ***
+//   deleteButton.innerHTML = "Delete";
+//   deleteButton.addEventListener('click', function() {
+//     const taskId = taskObj.id;
+//   });
+//   newTaskEl.append(deleteButton);
+// }
+// });
+
+function deleteTask(taskId) {
+  fetch(`/api/todo/${taskId}`, {
+    method: 'DELETE'
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log('Task deleted successfully');
+      } else {
+        console.error('Error deleting task');
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting task:', error);
+    });
+}
 
 $.get('/api/todo', data => {
-  // console.log(data);
-//loop through the data object and 
-//append the contents to a newly created div
-for (let taskObj of data) {
-  let task = taskObj.task;
-  let priorirty = taskObj.priorirty;
-  const newTaskEl = document.createElement('div');
-  newTaskEl.textContent = task + ' - ' + "Priority: " + priorirty;
-  taskContainer.append(newTaskEl);
-}
+//*** Loop through data object provided by database and append to doc.body ***
+  for (let taskObj of data) {
+    let taskId = taskObj.id; // Obtain the task ID
+    let task = taskObj.task;
+    let priorirty = taskObj.priorirty;
+    const newTaskEl = document.createElement('div');
+    newTaskEl.textContent = task + ' - ' + "Priority: " + priorirty;
+    taskContainer.append(newTaskEl);
+//*** Create and append Delete button to each element ***
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener('click', function() {
+      deleteTask(taskId); // Pass the task ID to the deleteTask function
+      newTaskEl.remove(); // Remove the task element from the DOM
+    });
+    newTaskEl.append(deleteButton);
+  }
 });
 
+
+//*** Modal creation ***/
 const openModalBtn = document.getElementById('openModalBtn');
 const modal = document.getElementById('myModal');
 const closeModalBtn = document.getElementsByClassName('close')[0];

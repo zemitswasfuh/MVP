@@ -13,10 +13,15 @@ server.use(express.static("public"));
 server.use(express.json());
 
 server.get("/api/todo", (_, res) => {
-    db.query("SELECT * FROM todo ORDER BY priorirty ASC").then((data) => {
+    db.query("SELECT id AS task_id, * FROM todo ORDER BY priorirty ASC")
+      .then((data) => {
         res.json(data.rows);
-    });
-});
+      })
+      .catch((error) => {
+        console.error("Error fetching tasks:", error);
+        res.sendStatus(500);
+      });
+  });
 
 server.post("/api/todo", (req, res) => {
     console.log("request.body" + req.body)
