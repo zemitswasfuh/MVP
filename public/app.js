@@ -1,7 +1,7 @@
 const createButton = document.querySelector(".create-button");
 const taskContainer = document.querySelector(".tasks-container")
 
-$.get('http://localhost:4000/api/todo', data => {
+$.get('/api/todo', data => {
   // console.log(data);
 //loop through the data object and 
 //append the contents to a newly created div
