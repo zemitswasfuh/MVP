@@ -42,11 +42,16 @@ $.get('/api/todo', data => {
     let task = taskObj.task;
     let priorirty = taskObj.priorirty;
     const newTaskEl = document.createElement('div');
+    newTaskEl.classList.add('task');
     newTaskEl.textContent = task + ' - ' + "Priority: " + priorirty;
     taskContainer.append(newTaskEl);
+    newTaskEl.addEventListener('click', function() {
+      newTaskEl.style.textDecoration = 'line-through';
+    });
 //*** Create and append Delete button to each element ***
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Delete";
+    deleteButton.classList.add('delete-button');
     deleteButton.addEventListener('click', function() {
       deleteTask(taskId); // Pass the task ID to the deleteTask function
       newTaskEl.remove(); // Remove the task element from the DOM
@@ -85,10 +90,12 @@ form.addEventListener('submit', function(event) {
   const priorityValue = parseInt(priorityInput.value); // Parse value as an integer
   modal.style.display = 'none';
   const newTaskEl = document.createElement('div');
-  newTaskEl.textContent = taskValue + ' - ' + priorityValue;
+  newTaskEl.classList.add('task');
+  newTaskEl.textContent = taskValue + ' - ' + "Priority: " + priorityValue;
   taskContainer.append(newTaskEl);
-  console.log("task: " + taskValue);
-  console.log(typeof priorityValue);
+  newTaskEl.addEventListener('click', function() {
+    newTaskEl.style.textDecoration = 'line-through';
+  });
    // Send the form data to the server
   const formData = {
     task: taskValue,
